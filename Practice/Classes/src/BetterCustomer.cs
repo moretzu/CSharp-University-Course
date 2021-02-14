@@ -7,10 +7,7 @@ namespace Classes
     {
         public int Id;
         public Person Person { get; set; }
-        public List<string> Orders
-        {
-            get { return new List<string>(); }
-        }
+        public List<string> Orders = new List<string>();
 
         public BetterCustomer(int id)
         {
