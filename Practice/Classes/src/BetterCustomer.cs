@@ -16,10 +16,10 @@ namespace Classes
 
         public void Order(string thing)
         {
-            string orderer = (this.GetType().GetProperty("Person") == null) ? Id.ToString() : Person.Name;
+            string orderer = (this.Person == null) ? Id.ToString() : Person.Name;
             Orders.Add(thing);
 
-            Console.WriteLine($"[{Id}] {Person.Name} ordered {thing}");
+            Console.WriteLine($"[{Id}] {orderer} ordered {thing}");
         }
     }
 }
