@@ -6,21 +6,17 @@ namespace Third
     {
         static void PrintMatrice(int[,] arr)
         {
-            Console.Write("[");
-            for (int i = 0; i < arr.GetLength(0); i++)
+            int rowLength = arr.GetLength(0);
+            int colLength = arr.GetLength(1);
+
+            for (int i = 0; i < rowLength; i++)
             {
-                for (int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < colLength; j++)
                 {
-                    Console.Write($"{arr[i, j]}");
-
-                    if (j + 1 != arr.GetLength(1))
-                        Console.Write(" ");
+                    Console.Write($"{arr[i, j]} ");
                 }
-
-                if (i + 1 != arr.GetLength(0))
-                    Console.Write("\n");
+                Console.WriteLine();
             }
-            Console.WriteLine("]");
         }
 
         static void Main(string[] args)
