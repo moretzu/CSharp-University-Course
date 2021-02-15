@@ -25,6 +25,7 @@ namespace Third
 
         static void Main(string[] args)
         {
+            // Подготовим генератор случайных чисел
             Random r = new Random();
 
             Console.Write("Укажите размер квадратной матрицы (одно число): ");
@@ -32,41 +33,37 @@ namespace Third
             string inp = Console.ReadLine();
             int n = Convert.ToInt32(inp);
 
-            // Подготовим объект матрицы
+            // Сгенерируем матрицу (2-х мерный массив) указанного размера
             int[,] matrice = new int[n, n];
 
             for (int i = 0; i < n; i++)
-            {
                 for (int j = 0; j < n; j++)
-                {
                     matrice[i, j] = r.Next(1, 10);
-                }
-            }
 
             Console.WriteLine("Исходная матрица: ");
             PrintMatrice(matrice);
 
-            int s = 0;
-            for (int i = 0; i < matrice.GetLength(0); i++)
-                for (int j = 0; j < matrice.GetLength(1); j++)
-                {
-                    if (i == j) s += matrice[i, j];
-                }
-
-            Console.WriteLine($"Сумма элементов главной оси: {s}");
-
+            // Создадим объект транспонированной матрицы и заполним его
+            // учитвая, что главная диагональ не должна изменяться
             int[,] invertedMatrice = new int[n, n];
             for (int i = 0; i < matrice.GetLength(0); i++)
                 for (int j = 0; j < matrice.GetLength(1); j++)
-                {
                     if (i != j)
                         invertedMatrice[i, j] = matrice[j, i];
                     else
                         invertedMatrice[i, j] = matrice[i, j];
-                }
 
             Console.WriteLine("Транспонированная матрица (главная ось сохранена)");
             PrintMatrice(invertedMatrice);
+
+            // Перменная-счётчик для вычисления суммы элементов
+            // главной диагонали исходной матрицы
+            int s = 0;
+            for (int i = 0; i < matrice.GetLength(0); i++)
+                for (int j = 0; j < matrice.GetLength(1); j++)
+                    if (i == j) s += matrice[i, j];
+
+            Console.WriteLine($"Сумма элементов главной оси: {s}");
         }
     }
 }
