@@ -44,18 +44,40 @@ namespace Third
             Console.WriteLine("Исходная матрица: ");
             PrintMatrice(matrice);
 
-            // Создадим объект транспонированной матрицы и заполним его
-            // учитвая, что главная диагональ не должна изменяться
-            var invertedMatrice = new int[n, n];
+            var mainDiagonal = "";
             for (var i = 0; i < matrice.GetLength(0); i++)
             for (var j = 0; j < matrice.GetLength(1); j++)
-                if (i != j)
-                    invertedMatrice[i, j] = matrice[j, i];
-                else
-                    invertedMatrice[i, j] = matrice[i, j];
+            {
+                if (i != j) continue;
 
-            Console.WriteLine("Транспонированная матрица (главная ось сохранена)");
-            PrintMatrice(invertedMatrice);
+                if (i + 1 == n && j + 1 == n)
+                    mainDiagonal += $"{matrice[i, j]}";
+                else
+                    mainDiagonal += $"{matrice[i, j]} | ";
+            }
+
+            // Транспонируем матрицу
+            for (var i = 1; i < n; i++)
+            for (var j = 0; j < i; j++)
+            {
+                matrice[i, j] ^= matrice[j, i];
+                matrice[j, i] ^= matrice[i, j];
+                matrice[i, j] ^= matrice[j, i];
+            }
+
+            // Вернём в матрицу главную ось
+            var c = 0;
+            for (var i = 0; i < matrice.GetLength(0); i++)
+            for (var j = 0; j < matrice.GetLength(1); j++)
+            {
+                if (i != j) continue;
+
+                matrice[i, j] = Convert.ToInt32(mainDiagonal.Split(" | ")[c]);
+                c++;
+            }
+
+            Console.WriteLine("Транспонированная матрица: ");
+            PrintMatrice(matrice);
 
             // Перменная-счётчик для вычисления суммы элементов
             // главной диагонали исходной матрицы
